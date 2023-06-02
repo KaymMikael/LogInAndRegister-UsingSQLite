@@ -53,19 +53,23 @@ public class UpdatePassword extends AppCompatActivity {
                     account.setId(userId);
                     if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
                         Toast.makeText(UpdatePassword.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                    } else if(newPassword.length()>=4 && confirmPassword.length()>=4){
+                    } else if(newPassword.length()<=5 && confirmPassword.length()<=5){
                         Toast.makeText(UpdatePassword.this, "Password must be longer than 5 characters", Toast.LENGTH_SHORT).show();
                     }else if (oldPassword.equals(newPassword)) {
                         Toast.makeText(UpdatePassword.this, "New password must be different from the existing password", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (loggedInUserId == userId) {
-                            db.updatePassword(account);
-                            Toast.makeText(UpdatePassword.this, "Successfully updated", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(UpdatePassword.this, LogIn.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(UpdatePassword.this, "Cant update your password.", Toast.LENGTH_SHORT).show();
+                        if (newPassword.equals(confirmPassword)) {
+                            if (loggedInUserId == userId) {
+                                db.updatePassword(account);
+                                Toast.makeText(UpdatePassword.this, "Successfully updated", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(UpdatePassword.this, LogIn.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(UpdatePassword.this, "Cant update your password.", Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            Toast.makeText(UpdatePassword.this, "Password not matching.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }catch (Exception e) {
