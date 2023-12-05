@@ -7,5 +7,3 @@ Application Features:
 3. Update Name
 4. Update Password
 5. Delete All Data
-
-Check the master branch
